@@ -1,0 +1,31 @@
+{
+    "balanced_ltr_config": {
+        "description": "Balanced LTR dataset generation configuration",
+        "min_positive_ratio": 0.01,
+        "max_positive_ratio": 0.1,
+        "target_positive_ratio": 0.1,
+        "comment": "min_positive_ratio: filter out queries with positive ratio less than this value; max_positive_ratio: perform negative sampling on queries with positive ratio greater than this value; target_positive_ratio: target positive ratio"
+    },
+    
+    "adaptive_ltr_config": {
+        "description": "Adaptive LTR dataset generation configuration",
+        "window_days": 7,
+        "min_positive_ratio": 0.01,
+        "target_positive_ratio": 0.37,
+        "step_days": 3,
+        "comment": "window_days: prediction time window (days); step_days: candidate query point generation step (days); min_positive_ratio: minimum positive sample ratio; target_positive_ratio: target positive ratio"
+    },
+    
+    "time_range": {
+        "start_date": "2024-01-01",
+        "end_date": "2025-05-27",
+        "comment": "Dataset time range"
+    },
+    
+    "data_paths": {
+        "fault_data": "data/host_fault_detail.json",
+        "normal_hosts": "data/normal_hosts.json",
+        "output_dir": "data/",
+        "comment": "Data file path configuration"
+    }
+}

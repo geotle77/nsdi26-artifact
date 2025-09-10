@@ -1,0 +1,157 @@
+{
+    "model_params": {
+        "hidden_dims": [512, 256, 128],
+        "dropout_rate": 0.3,
+        "learning_rate": 0.001,
+        "weight_decay": 0.0001,
+        "loss_type": "pointwise",
+        "description": {
+            "hidden_dims": "MLP hidden layer dimensions, decreasing layer by layer",
+            "dropout_rate": "Dropout ratio, prevent overfitting",
+            "learning_rate": "Learning rate, control training speed",
+            "weight_decay": "Weight decay, L2 regularization",
+            "loss_type": "Loss function type: listwise/pairwise/pointwise"
+        }
+    },
+    
+    "training_params": {
+        "max_epochs": 10,
+        "batch_size": 256,
+        "patience": 3,
+        "num_workers": 4,
+        "gradient_clip_val": 1.0,
+        "precision": 16,
+        "description": {
+            "max_epochs": "Maximum training epochs",
+            "batch_size": "Batch size, adjust according to GPU memory",
+            "patience": "Early stopping patience, the number of epochs without improvement of validation set performance",
+            "num_workers": "Number of data loading processes",
+            "gradient_clip_val": "Gradient clipping threshold",
+            "precision": "Training precision, 16 is mixed precision"
+        }
+    },
+    
+    "data_split": {
+        "test_ratio": 0.2,
+        "validation_ratio": 0.1,
+        "split_method": "temporal",
+        "description": {
+            "test_ratio": "Test set ratio",
+            "validation_ratio": "Validation set ratio",
+            "split_method": "Data split method, temporal is time split"
+        }
+    },
+    
+    "loss_functions": {
+        "listwise": {
+            "name": "ListNet",
+            "description": "Listwise loss based on probability distribution",
+            "advantages": ["Consider the entire ranking list", "Theoretical foundation solid"],
+            "suitable_for": "Scenarios with more samples in the query"
+        },
+        "pairwise": {
+            "name": "RankNet", 
+            "description": "Pairwise loss based on sample pairs",
+            "advantages": ["Stable training", "Robust to noise"],
+            "suitable_for": "Scenarios with clear sample pair relationships"
+        },
+        "pointwise": {
+            "name": "Binary Cross Entropy",
+            "description": "Convert ranking problem to classification problem",
+            "advantages": ["Simple and efficient", "Easy to understand"],
+            "suitable_for": "Fast prototype verification"
+        }
+    },
+    
+    "architecture_variants": {
+        "simple_mlp": {
+            "hidden_dims": [256, 128],
+            "dropout_rate": 0.2,
+            "description": "Simple MLP, suitable for small dataset"
+        },
+        "deep_mlp": {
+            "hidden_dims": [1024, 512, 256, 128],
+            "dropout_rate": 0.4,
+            "description": "Deep MLP, suitable for large dataset"
+        },
+        "wide_mlp": {
+            "hidden_dims": [512, 512, 256],
+            "dropout_rate": 0.3,
+            "description": "Wide MLP, enhance expression ability"
+        }
+    },
+    
+    "hyperparameter_tuning": {
+        "learning_rate": {
+            "search_space": [0.0001, 0.0005, 0.001, 0.005, 0.01],
+            "strategy": "grid_search"
+        },
+        "hidden_dims": {
+            "search_space": [
+                [256, 128],
+                [512, 256, 128], 
+                [1024, 512, 256],
+                [512, 512, 256]
+            ],
+            "strategy": "manual"
+        },
+        "dropout_rate": {
+            "search_space": [0.1, 0.2, 0.3, 0.4, 0.5],
+            "strategy": "grid_search"
+        },
+        "batch_size": {
+            "search_space": [128, 256, 512],
+            "strategy": "manual"
+        }
+    },
+    
+    "evaluation_metrics": {
+        "ranking_metrics": {
+            "NDCG@k": {
+                "k_values": [1, 3, 5, 10, 20],
+                "description": "Normalized Discounted Cumulative Gain",
+                "importance": "primary"
+            }
+        },
+        "classification_metrics": {
+            "AUC": {
+                "description": "ROC Area Under Curve",
+                "importance": "secondary"
+            }
+        }
+    },
+    
+    "comparison_baselines": {
+        "lightgbm_ranker": {
+            "description": "LightGBM Ranker baseline",
+            "expected_performance": "NDCG@5 ~ 0.3-0.5"
+        },
+        "random_forest": {
+            "description": "Random Forest baseline",
+            "expected_performance": "NDCG@5 ~ 0.2-0.4"
+        },
+        "linear_model": {
+            "description": "Linear model baseline",
+            "expected_performance": "NDCG@5 ~ 0.1-0.3"
+        }
+    },
+    
+    "optimization_strategies": {
+        "data_augmentation": {
+            "query_dropout": "Randomly drop samples in query",
+            "feature_noise": "Add Gaussian noise to features",
+            "label_smoothing": "Label smoothing technique"
+        },
+        "regularization": {
+            "dropout": "Random dropout to prevent overfitting",
+            "batch_normalization": "Batch normalization to stabilize training",
+            "weight_decay": "Weight decay L2 regularization",
+            "gradient_clipping": "Gradient clipping to prevent gradient explosion"
+        },
+        "learning_rate_scheduling": {
+            "reduce_on_plateau": "Reduce learning rate when validation set performance stagnates",
+            "cosine_annealing": "Cosine annealing learning rate scheduling",
+            "step_lr": "Step learning rate decay"
+        }
+    }
+}

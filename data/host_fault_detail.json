@@ -1,0 +1,66 @@
+{
+    "host-0001.example.com": [
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "Link Down",
+        "Class": "Parameter Surface Cable",
+        "Level": "Hardware Fault",
+        "CreatedTime": 1752467649000,
+        "CreatedTimeStr": "2025-07-14 12:34:09",
+        "ClosedTime": 1752473158000,
+        "ClosedTimeStr": "2025-07-14 14:05:58"
+      },
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "GPU DBE(Double Bit ECC) > Threshold",
+        "Class": "GPU",
+        "Level": "Hardware Fault",
+        "CreatedTime": 1752387521000,
+        "CreatedTimeStr": "2025-07-13 14:18:41",
+        "ClosedTime": 1752461057000,
+        "ClosedTimeStr": "2025-07-14 10:44:17"
+      },
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "Unknown Error",
+        "Class": "Other",
+        "Level": "Other Fault",
+        "CreatedTime": 1746697421000,
+        "CreatedTimeStr": "2025-05-08 17:43:41",
+        "ClosedTime": 1746698086000,
+        "ClosedTimeStr": "2025-05-08 17:54:46"
+      }
+    ],
+    "host-0002.example.com": [
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "NIC Link Speed low",
+        "Class": "NIC",
+        "Level": "Hardware Fault",
+        "CreatedTime": 1746619681000,
+        "CreatedTimeStr": "2025-05-07 20:08:01",
+        "ClosedTime": 1746621822000,
+        "ClosedTimeStr": "2025-05-07 20:43:42"
+      },
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "GPU Lost",
+        "Class": "GPU",
+        "Level": "Hardware Fault",
+        "CreatedTime": 1743304095000,
+        "CreatedTimeStr": "2025-03-30 11:08:15",
+        "ClosedTime": 1743392312000,
+        "ClosedTimeStr": "2025-03-31 11:38:32"
+      },
+      {
+        "FaultID": "REDACTED",
+        "SubClass": "GPU Temperature High",
+        "Class": "GPU",
+        "Level": "Hardware Fault",
+        "CreatedTime": 1741872541000,
+        "CreatedTimeStr": "2025-03-13 21:29:01",
+        "ClosedTime": null,
+        "ClosedTimeStr": ""
+      }
+    ]
+  }
