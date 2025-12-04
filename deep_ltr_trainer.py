@@ -207,7 +207,7 @@ class DeepLTRTrainer:
         ltr_samples = self.load_data(data_path)
         
         # Time-based splitting
-        train_samples, val_samples, test_samples = self.random_split(ltr_samples)
+        train_samples, val_samples, test_samples = self.temporal_split(ltr_samples)
         
         # Create data loaders
         train_loader, val_loader, test_loader, input_dim = self.create_data_loaders(
