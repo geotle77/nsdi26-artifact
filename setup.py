@@ -3,7 +3,7 @@
 Setup script for Fault Prediction Project
 """
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 import os
 
 # Read the README file
@@ -18,7 +18,7 @@ def read_requirements():
 
 # Get version
 def get_version():
-    version_file = os.path.join("src", "__init__.py")
+    version_file = os.path.join("fault_prediction", "__init__.py")
     if os.path.exists(version_file):
         with open(version_file, "r", encoding="utf-8") as f:
             for line in f:
@@ -39,21 +39,27 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: System :: Monitoring",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=read_requirements(),
+    packages=find_packages(include=["fault_prediction", "fault_prediction.*"]),
     include_package_data=True,
     package_data={
         "": ["*.json", "*.yaml", "*.yml", "*.txt", "*.md"],
     },
     zip_safe=False,
+    entry_points={
+        "console_scripts": [
+            "fault-prediction-generate=fault_prediction.generate_dataset:main",
+            "fault-prediction-train=fault_prediction.trainer:main",
+        ]
+    },
     keywords=[
         "fault prediction",
         "machine learning",

@@ -1,0 +1,31 @@
+{
+    "balanced_ltr_config": {
+        "description": "Balanced LTR dataset generation configuration",
+        "min_positive_ratio": 0.01,
+        "max_positive_ratio": 0.1,
+        "target_positive_ratio": 0.1,
+        "comment": "Filter sparse queries and optionally down-sample negatives to control class balance."
+    },
+    
+    "adaptive_ltr_config": {
+        "description": "Adaptive LTR dataset generation configuration",
+        "window_days": 7,
+        "min_positive_ratio": 0.01,
+        "target_positive_ratio": 0.1,
+        "step_days": 3,
+        "comment": "Window and stride control query timestamps; positive ratio controls candidate filtering and negative sampling."
+    },
+    
+    "time_range": {
+        "start_date": "2024-01-01",
+        "end_date": "2026-01-01",
+        "comment": "Query generation time range."
+    },
+    
+    "data_paths": {
+        "fault_data": "data/host_fault_detail.example.json",
+        "normal_hosts": "data/normal_hosts.example.json",
+        "output_path": "data/ltr_samples.pkl",
+        "comment": "Default mock-data file paths for open-source usage."
+    }
+}

@@ -8,8 +8,10 @@ model:
 
 training:
   max_epochs: 100
-  batch_size: 1024  # 保留用于兼容性，训练时实际使用queries_per_batch
-  queries_per_batch: 2  # 每个batch包含的query数量，pairwise建议多一些query以增加对比多样性
+  batch_size: 1024  # Kept for compatibility; batching is query-based.
+  queries_per_batch: 2  # Number of queries per batch.
+  monitor_metric: val_recall@5pct_mean
+  monitor_mode: max
   patience: 10
   num_workers: 4
 

@@ -1,45 +1,49 @@
-# Mock Data Schema (Open-Source Template)
+# Mock Data Schema
 
-This document defines the minimal mock input files for open-source usage when private production data is unavailable.
+This document defines the mock input contracts used by the open-source workflow.
 
-## Supported mock files
+## Tracked templates
 
 - `data/host_fault_detail.example.json`
 - `data/normal_hosts.example.json` (optional)
 
-To use these with commands from `README.md`, copy them to the expected runtime names:
+## Runtime files
+
+You may copy templates to runtime names:
 
 ```bash
 cp data/host_fault_detail.example.json data/host_fault_detail.json
 cp data/normal_hosts.example.json data/normal_hosts.json
 ```
 
+The generator also accepts custom paths through CLI flags.
+
 ## 1) `host_fault_detail` schema
 
 Top-level type: `object`
 
-- Key: host identifier string (for example, `node-0001.example.org`)
-- Value: array of fault event objects for that host
+- Key: host identifier string, for example `host-0001.example.com`
+- Value: array of fault events for that host
 
-### Fault event object fields
+### Fault event fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `FaultID` | string | Yes | Mock fault ID. Keep non-sensitive (for example, `MOCK-FAULT-0001`). |
-| `FaultType` | string | Optional | High-level category (for example, `Network`, `Power`, `Storage`). |
-| `SubClass` | string | Yes | Detailed fault subclass used for labeling and feature generation. |
-| `Class` | string | Yes | Fault class group (for example, `Network`, `Storage`, `Other`). |
-| `Level` | string | Yes | Severity/group label (for example, `Hardware Fault`, `Other Fault`). |
-| `CreatedTime` | integer | Yes | Event start timestamp in Unix milliseconds. |
-| `CreatedTimeStr` | string | Recommended | Human-readable UTC/local time string (`YYYY-MM-DD HH:MM:SS`). |
-| `ClosedTime` | integer or `null` | Yes | Event end timestamp in Unix milliseconds, or `null` if unresolved. |
-| `ClosedTimeStr` | string | Recommended | End time string or empty string when unresolved. |
+| `FaultID` | string | Yes | Mock fault identifier such as `MOCK-FAULT-0001`. |
+| `FaultType` | string | Optional | High-level category such as `Network` or `Storage`. |
+| `SubClass` | string | Yes | Fine-grained fault category. |
+| `Class` | string | Yes | Mid-level category. |
+| `Level` | string | Yes | Severity label. |
+| `CreatedTime` | integer | Yes | Start timestamp in Unix milliseconds. |
+| `CreatedTimeStr` | string | Recommended | Human-readable timestamp (`YYYY-MM-DD HH:MM:SS`). |
+| `ClosedTime` | integer or `null` | Yes | End timestamp in Unix milliseconds. |
+| `ClosedTimeStr` | string | Recommended | End timestamp string or empty string when unresolved. |
 
-### Minimal example structure
+### Minimal example
 
 ```json
 {
-  "node-0001.example.org": [
+  "host-0001.example.com": [
     {
       "FaultID": "MOCK-FAULT-0001",
       "FaultType": "Network",
@@ -59,20 +63,28 @@ Top-level type: `object`
 
 Top-level type: `array[string]`
 
-Each item is a host identifier with no fault records in the selected data period.
+Each item is a host with no fault records in the selected period.
 
-Example:
+## 3) `all_hosts_info` schema (optional)
 
-```json
-[
-  "node-0101.example.org",
-  "node-0102.example.org"
-]
-```
+Top-level type: `object`
 
-## Privacy and open-source safety
+- Key: host identifier string
+- Value: metadata object used as optional categorical features
 
-- Use placeholder hostnames only (`*.example.org` is recommended).
-- Do not include hardware model identifiers, serial numbers, rack positions, internal region codes, or asset tags.
-- Do not include private network addresses, account IDs, or production ticket IDs.
-- Keep all IDs and labels synthetic and reproducible.
+Supported fields:
+
+- `model` (string)
+- `gpu_model` (string)
+- `cpu_model` (string)
+- `quota_group` (string)
+- `manufacturer` (string)
+- `main_board.model` (string)
+
+If this file is not provided, the pipeline fills metadata fields with `Unknown`.
+
+## Safety rules
+
+- Use synthetic identifiers only.
+- Never commit production records.
+- Keep all host names and IDs anonymized.
